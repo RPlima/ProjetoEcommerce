@@ -1,0 +1,37 @@
+﻿
+@using EcommerceOsorioManha.Models
+@{
+    Layout = null;
+    Produto produto = ViewBag.Produto;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AlterarProduto</title>
+</head>
+<body>
+    <h1> Alterar Produto </h1>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.Hidden("txtId", produto.ProdutoId)
+            @Html.Label("Nome do produto")
+            @Html.TextBox("txtNome", produto.Nome)<br>
+
+            @Html.Label("Descrição do produto")
+            @Html.TextBox("txtDescricao", produto.Descricao)<br>
+
+            @Html.Label("Preço do produto")
+            @Html.TextBox("txtPreco", produto.Preco)<br>
+
+            @Html.Label("Categoria do produto")
+            @Html.TextBox("txtCategoria", produto.Categoria)<br>
+
+            <input type="submit" value="Alterar" />
+        }
+    </div>
+</body>
+</html>
