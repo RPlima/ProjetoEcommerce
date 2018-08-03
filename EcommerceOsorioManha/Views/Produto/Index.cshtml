@@ -1,35 +1,14 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/Layout.cshtml";
     DateTime data = ViewBag.Data;
     List<EcommerceOsorioManha.Models.Produto> produtos = ViewBag.Produtos;
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Gerenciamento de Produtos</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        @Html.ActionLink("Ecommerce - Jhonson", "Index", "Produto", null, new { @class = "navbar-brand" })
-
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    @Html.ActionLink("Cadastrar Produto","CadastrarProduto","Produto",null,new { @class = "nav-link"})
-                </li>
-
-            </ul>
-        </div>
-    </nav>
-    <div id="content" class="container" style="margin-top">
+    <div>
         <p>
-            <h3>Gerenciamento de Produtos</h3>
+            <h2>Gerenciamento de Produtos</h2>
         </p>
         @*<a href="~/Views/Produto/Cadastrar"> Cadastrar Produto </a>*@
 
@@ -63,22 +42,6 @@
                 }
 
             </table>
-            <hr />
-            <footer style="text-align: center; margin-top: 30px">
-                <p>&copy; @DateTime.Now.Year - Desenvolvido por Raphael Lima</p>
-            </footer>
+
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>

@@ -1,37 +1,33 @@
 ﻿
 @using EcommerceOsorioManha.Models
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/Layout.cshtml";
     Produto produto = ViewBag.Produto;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AlterarProduto</title>
-</head>
-<body>
-    <h1> Alterar Produto </h1>
-    <div>
-        @using (Html.BeginForm())
+   <div class="col-sm-4">
+        @using (Html.BeginForm("AlterarProduto", "Produto", FormMethod.Post, new { @class = "form-group" }))
         {
-            @Html.Hidden("txtId", produto.ProdutoId)
-            @Html.Label("Nome do produto")
-            @Html.TextBox("txtNome", produto.Nome)<br>
 
-            @Html.Label("Descrição do produto")
-            @Html.TextBox("txtDescricao", produto.Descricao)<br>
+            <fieldset>
+                <legend>Alterar Produto</legend>
 
-            @Html.Label("Preço do produto")
-            @Html.TextBox("txtPreco", produto.Preco)<br>
+                @Html.Hidden("txtid",produto.ProdutoId)
 
-            @Html.Label("Categoria do produto")
-            @Html.TextBox("txtCategoria", produto.Categoria)<br>
+                @Html.Label("Nome do produto")
+                @Html.TextBox("txtNome", produto.Nome, new { @class = "form-control", @placeholder = "Nome do Produto" })<br>
 
-            <input type="submit" value="Alterar" />
+
+                @Html.Label("Descrição do produto")
+                @Html.TextBox("txtDescricao", produto.Descricao, new { @class = "form-control", @placeholder = "Desc. do Produto" })<br>
+
+
+                @Html.Label("Preço do produto")
+                @Html.TextBox("txtPreco", produto.Preco, new { @class = "form-control", @placeholder = "Preço em R$" })<br>
+
+                @Html.Label("Categoria do produto")
+                @Html.TextBox("txtCategoria", produto.Categoria, new { @class = "form-control", @placeholder = "Categ. do Produto" })<br>
+            </fieldset>
+            <input type="submit" value="Alterar" class="btn btn-warning" />
         }
     </div>
-</body>
-</html>
