@@ -11,6 +11,7 @@ namespace EcommerceOsorioManha.Controllers
 {
     public class ProdutoController : Controller
     {
+        //identacao CTRL+K+D
 
         #region View Index
         // GET: Produto
@@ -31,7 +32,7 @@ namespace EcommerceOsorioManha.Controllers
 
         #region Cadastrando Produto
         [HttpPost]
-        public ActionResult CadastrarProduto(string txtNome, string txtDescricao, 
+        public ActionResult CadastrarProduto(string txtNome, string txtDescricao,
             string txtPreco, string txtCategoria)
         {
             Produto produto = new Produto
@@ -54,7 +55,7 @@ namespace EcommerceOsorioManha.Controllers
 
             ProdutoDAO.RemoverProduto(id);
             return RedirectToAction("Index", "Produto");
-            //não esquecer de utilizar o RedirectToAction("Nome da página", "Model") pois ao não utiliza-lo gerará uma excessão de arquivo não encontrado
+            //não esquecer de utilizar o RedirectToAction("Nome da página", "Controller") pois ao não utiliza-lo gerará uma excessão de arquivo não encontrado
 
         }
         #endregion
