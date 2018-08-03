@@ -11,8 +11,8 @@ namespace EcommerceOsorioManha.Controllers
 {
     public class ProdutoController : Controller
     {
-       
 
+        #region View Index
         // GET: Produto
         public ActionResult Index()
         {
@@ -20,12 +20,16 @@ namespace EcommerceOsorioManha.Controllers
             ViewBag.Produtos = ProdutoDAO.ReturnProdutos();
             return View();
         }
+        #endregion
 
+        #region Pag Cadastrar Produto
         public ActionResult CadastrarProduto()
         {
             return View();
         }
+        #endregion
 
+        #region Cadastrando Produto
         [HttpPost]
         public ActionResult CadastrarProduto(string txtNome, string txtDescricao, 
             string txtPreco, string txtCategoria)
@@ -42,7 +46,9 @@ namespace EcommerceOsorioManha.Controllers
 
             return RedirectToAction("Index", "Produto");
         }
+        #endregion
 
+        #region Remover Produto
         public ActionResult RemoverProduto(int id)
         {
 
@@ -51,14 +57,17 @@ namespace EcommerceOsorioManha.Controllers
             //não esquecer de utilizar o RedirectToAction("Nome da página", "Model") pois ao não utiliza-lo gerará uma excessão de arquivo não encontrado
 
         }
+        #endregion
 
-
+        #region Pag Alterar Produto
         public ActionResult AlterarProduto(int id)
         {
             ViewBag.Produto = ProdutoDAO.BuscarProduto(id);
             return View();
         }
+        #endregion
 
+        #region Alterando Produto
         [HttpPost]
         public ActionResult AlterarProduto(int txtid, string txtNome, string txtDescricao, string txtPreco, string txtCategoria)
         {
@@ -75,6 +84,7 @@ namespace EcommerceOsorioManha.Controllers
 
             return RedirectToAction("Index", "Produto");
         }
+        #endregion
 
     }
 }
