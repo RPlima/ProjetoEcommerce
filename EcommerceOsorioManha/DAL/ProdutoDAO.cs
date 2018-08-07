@@ -18,11 +18,23 @@ namespace EcommerceOsorioManha.DAL
         }
         #endregion
 
-        #region Cadastrar Produto
-        public static void CadastrarProduto(Produto produto)
+        #region Buscar Pelo Nome
+        public static Produto BuscarProdutoByNome(Produto produto)
         {
-            ctx.Produtos.Add(produto);
-            ctx.SaveChanges();
+            return ctx.Produtos.FirstOrDefault(x => x.Nome.Equals(produto.Nome));
+        }
+        #endregion
+
+        #region Cadastrar Produto
+        public static bool CadastrarProduto(Produto produto)
+        {
+            if (BuscarProdutoByNome(produto) == null)
+            {
+                ctx.Produtos.Add(produto);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
 
         }
         #endregion
@@ -45,10 +57,15 @@ namespace EcommerceOsorioManha.DAL
         #endregion
 
         #region Alterar Produto
-        public static void AlterarProduto(Produto produto)
+        public static bool AlterarProduto(Produto produto)
         {
-            ctx.Entry(produto).State = EntityState.Modified;
-            ctx.SaveChanges();
+            if(ctx.Produtos.FirstOrDefault(x => x.Nome.Equals(produto.Nome) && x.ProdutoId != produto.ProdutoId) == null)
+            {
+                ctx.Entry(produto).State = EntityState.Modified;
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
 

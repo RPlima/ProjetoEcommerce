@@ -18,8 +18,7 @@ namespace EcommerceOsorioManha.Controllers
         public ActionResult Index()
         {
             ViewBag.Data = DateTime.Now;
-            ViewBag.Produtos = ProdutoDAO.ReturnProdutos();
-            return View();
+            return View(ProdutoDAO.ReturnProdutos());
         }
         #endregion
 
@@ -32,20 +31,27 @@ namespace EcommerceOsorioManha.Controllers
 
         #region Cadastrando Produto
         [HttpPost]
-        public ActionResult CadastrarProduto(string txtNome, string txtDescricao,
-            string txtPreco, string txtCategoria)
+        public ActionResult CadastrarProduto(Produto produto)
         {
-            Produto produto = new Produto
+            if (ModelState.IsValid)
             {
-                Nome = txtNome,
-                Descricao = txtDescricao,
-                Preco = Convert.ToDouble(txtPreco),
-                Categoria = txtCategoria
-            };
+               if(ProdutoDAO.CadastrarProduto(produto))
+                {
+                    return RedirectToAction("Index", "Produto");
+                }
+                else
+                {
+                    ModelState.AddModelError("","Produto já existente no Banco!");
+                    return View(produto);
+                }
+            }
+            else
+            {
+                return View(produto);
+            }
 
-            ProdutoDAO.CadastrarProduto(produto);
 
-            return RedirectToAction("Index", "Produto");
+
         }
         #endregion
 
@@ -63,27 +69,39 @@ namespace EcommerceOsorioManha.Controllers
         #region Pag Alterar Produto
         public ActionResult AlterarProduto(int id)
         {
-            ViewBag.Produto = ProdutoDAO.BuscarProduto(id);
-            return View();
+            
+            return View(ProdutoDAO.BuscarProduto(id));
         }
         #endregion
 
         #region Alterando Produto
         [HttpPost]
-        public ActionResult AlterarProduto(int txtid, string txtNome, string txtDescricao, string txtPreco, string txtCategoria)
+        public ActionResult AlterarProduto(Produto produtoAlterado)
         {
-            Produto produto = ProdutoDAO.BuscarProduto(txtid);
-            produto.Nome = txtNome;
-            produto.Descricao = txtDescricao;
-            produto.Preco = Convert.ToDouble(txtPreco);
-            produto.Categoria = txtCategoria;
+            Produto produtoOriginal = ProdutoDAO.BuscarProduto(produtoAlterado.ProdutoId);
+            produtoOriginal.Nome = produtoAlterado.Descricao;
+            produtoOriginal.Descricao = produtoAlterado.Descricao;
+            produtoOriginal.Preco = produtoAlterado.Preco;
+            produtoOriginal.Categoria = produtoAlterado.Categoria;
 
-            ProdutoDAO.AlterarProduto(produto);
-
+           
+            if (ModelState.IsValid)
+            {
+                if (ProdutoDAO.AlterarProduto(produtoOriginal))
+                {
+                    return RedirectToAction("Index", "Produto");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Produto com o mesmo nome já existente no Banco!");
+                    return View(produtoOriginal);
+                }
+            }
+            else
+            {
+                return View(produtoOriginal);
+            }
             // ctx.Entry(produto).State = System.Data.Entity.EntityState.Modified;
-
-
-            return RedirectToAction("Index", "Produto");
         }
         #endregion
 

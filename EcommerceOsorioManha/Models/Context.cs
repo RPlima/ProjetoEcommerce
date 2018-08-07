@@ -12,5 +12,6 @@ namespace EcommerceOsorioManha.Models
 
         //Mapear as classes que vão virar tabela no banco
         public DbSet<Produto> Produtos { get; set; }
+
     }
 }

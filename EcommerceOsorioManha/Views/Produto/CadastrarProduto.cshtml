@@ -1,32 +1,60 @@
 ﻿
-@{
-    Layout = "~/Views/Shared/Layout.cshtml";
-}
+@model EcommerceOsorioManha.Models.Produto
 
 
- 
-    <div class="col-sm-4">
-        @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" }))
-        {
 
-            <fieldset>
-                <legend>Cadastrar Produto</legend>
-             
+<div class="col-sm-4">
+    @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" }))
+    {
 
-                @Html.Label("Nome do produto")
-                @Html.TextBox("txtNome", null, new { @class = "form-control", @placeholder = "Nome do Produto" })<br>
+        <fieldset>
+            <legend>Cadastrar Produto</legend>
 
 
-                @Html.Label("Descrição do produto")
-                @Html.TextBox("txtDescricao",null, new { @class = "form-control", @placeholder = "Desc. do Produto" })<br>
+            @Html.Label("Nome do produto")
+            @Html.TextBoxFor(model => model.Nome,
+                    new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Nome do Produto"
 
+                    })
+            @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
+            <br><br>
+            @Html.Label("Descrição do produto")
+            @Html.TextBoxFor(model => model.Descricao,
+                    new
+                    {
 
-                @Html.Label("Preço do produto")
-                @Html.TextBox("txtPreco", null, new { @class = "form-control" , @placeholder = "Preço em R$" })<br>
+                        @class = "form-control",
+                        @placeholder = "Desc. do Produto"
 
-                @Html.Label("Categoria do produto")
-                @Html.TextBox("txtCategoria", null, new { @class = "form-control" , @placeholder = "Categ. do Produto" })<br>
-            </fieldset>
-            <input type="submit" value="Cadastrar"  class="btn btn-success"/>
-        }
-    </div>
+                    })
+            @Html.ValidationMessageFor(model => model.Descricao, null, new { @class = "text-danger" })
+            <br><br>
+            @Html.Label("Preço do produto")
+            @Html.TextBoxFor(model => model.Preco,
+               new
+               {
+                   @class = "form-control",
+                   @placeholder = "Preço em R$"
+               })
+            @Html.ValidationMessageFor(model => model.Preco, null, new { @class = "text-danger" })
+            <br><br>
+            @Html.Label("Categoria do produto")
+            @Html.TextBoxFor(model => model.Categoria,
+               new
+               {
+                   @class = "form-control",
+                   @placeholder = "Categ. do Produto"
+               })
+            @Html.ValidationMessageFor(model => model.Categoria, null, new { @class = "text-danger" })
+            <br><br>
+        </fieldset>
+        <input type="submit" value="Cadastrar" class="btn btn-success" />
+   <p>
+        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+   </p>
+           
+    }
+</div>

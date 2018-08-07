@@ -225,3 +225,4 @@ C:\Users\Aluno\Source\Repos\ProjetoEcommerce\EcommerceOsorioManha\obj\Debug\Ecom
 C:\Users\Aluno\Source\Repos\ProjetoEcommerce\EcommerceOsorioManha\obj\Debug\EcommerceOsorioManha.csproj.GenerateResource.Cache
 C:\Users\Aluno\Source\Repos\ProjetoEcommerce\EcommerceOsorioManha\obj\Debug\EcommerceOsorioManha.dll
 C:\Users\Aluno\Source\Repos\ProjetoEcommerce\EcommerceOsorioManha\obj\Debug\EcommerceOsorioManha.pdb
+C:\Users\Aluno\Source\Repos\ProjetoEcommerce\EcommerceOsorioManha\obj\Debug\EcommerceOsorioManha.Migrations.AlterTableProduto.resources
