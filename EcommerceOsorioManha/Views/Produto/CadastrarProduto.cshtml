@@ -3,15 +3,16 @@
 
 
 
+
 <div class="col-sm-4">
-    @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" }))
+    @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" , enctype= "multipart/from-data"}))
     {
 
         <fieldset>
             <legend>Cadastrar Produto</legend>
 
 
-            @Html.Label("Nome do produto")
+            @Html.LabelFor(model => model.Nome)
             @Html.TextBoxFor(model => model.Nome,
                     new
                     {
@@ -21,7 +22,7 @@
                     })
             @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
             <br><br>
-            @Html.Label("Descrição do produto")
+            @Html.LabelFor(model => model.Descricao)
             @Html.TextBoxFor(model => model.Descricao,
                     new
                     {
@@ -32,7 +33,7 @@
                     })
             @Html.ValidationMessageFor(model => model.Descricao, null, new { @class = "text-danger" })
             <br><br>
-            @Html.Label("Preço do produto")
+            @Html.LabelFor(model => model.Preco)
             @Html.TextBoxFor(model => model.Preco,
                new
                {
@@ -41,20 +42,20 @@
                })
             @Html.ValidationMessageFor(model => model.Preco, null, new { @class = "text-danger" })
             <br><br>
-            @Html.Label("Categoria do produto")
-            @Html.TextBoxFor(model => model.Categoria,
-               new
-               {
-                   @class = "form-control",
-                   @placeholder = "Categ. do Produto"
-               })
+            @Html.LabelFor(model => model.Categoria)
+            @Html.DropDownList("Categorias", null, "-- Selecione --", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Categoria, null, new { @class = "text-danger" })
-            <br><br>
+            <br><br />
+            @Html.Label("Imagem do produto")
+
+            <p>
+                <input type="file" name="fupImagem" />
+            </p>
         </fieldset>
         <input type="submit" value="Cadastrar" class="btn btn-success" />
-   <p>
-        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
-   </p>
-           
+        <p>
+            @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+        </p>
+
     }
 </div>

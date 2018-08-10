@@ -1,0 +1,45 @@
+﻿
+@model EcommerceOsorioManha.Models.Categoria
+
+<div class="col-sm-4">
+    @using (Html.BeginForm("CadastrarCategoria", "Categoria", FormMethod.Post, new { @class = "form-group" }))
+    {
+
+        <fieldset>
+            <legend>Cadastrar Categoria</legend>
+
+
+            @Html.LabelFor(model => model.NomeCateg)
+            @Html.TextBoxFor(model => model.NomeCateg,
+                    new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Nome da Categoria"
+
+                    })
+            @Html.ValidationMessageFor(model => model.NomeCateg, null, new { @class = "text-danger" })
+            <br><br>
+            @Html.LabelFor(model => model.DescCategoria)
+            @Html.TextAreaFor(model => model.DescCategoria,
+                    new
+                    {
+
+                        @class = "form-control",
+                        @placeholder = "Desc. do Produto"
+
+                    })
+            @Html.ValidationMessageFor(model => model.DescCategoria, null, new { @class = "text-danger" })
+            <br><br>
+        </fieldset>
+        <input type="submit" value="Cadastrar" class="btn btn-success" />
+        <p>
+            @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+        </p>
+
+    }
+</div>
+
+
+
+
+

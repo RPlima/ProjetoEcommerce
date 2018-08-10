@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using EcommerceOsorioManha.DAL;
+using System.IO;
 
 namespace EcommerceOsorioManha.Controllers
 {
@@ -18,6 +19,7 @@ namespace EcommerceOsorioManha.Controllers
         public ActionResult Index()
         {
             ViewBag.Data = DateTime.Now;
+            
             return View(ProdutoDAO.ReturnProdutos());
         }
         #endregion
@@ -25,23 +27,50 @@ namespace EcommerceOsorioManha.Controllers
         #region Pag Cadastrar Produto
         public ActionResult CadastrarProduto()
         {
+            ViewBag.Categorias = new SelectList(CategoriaDAO.RetornarCategorias(), "CategoriaId", "NomeCateg");
+
             return View();
         }
         #endregion
 
         #region Cadastrando Produto
         [HttpPost]
-        public ActionResult CadastrarProduto(Produto produto)
+        public ActionResult CadastrarProduto(Produto produto, int? Categorias, HttpPostedFileBase fupImagem)
         {
+
+            ViewBag.Categorias = new SelectList(CategoriaDAO.RetornarCategorias(), "CategoriaId", "NomeCateg");
+
             if (ModelState.IsValid)
             {
-               if(ProdutoDAO.CadastrarProduto(produto))
+                if (Categorias != null)
                 {
-                    return RedirectToAction("Index", "Produto");
+                    if (fupImagem != null)
+                    {
+                        string nomeImagem = Path.GetFileName(fupImagem.FileName);
+                        string caminho = Path.Combine(Server.MapPath("~/Images/"));
+
+                        fupImagem.SaveAs(caminho);
+
+                        produto.Imagem = nomeImagem;
+                        produto.Categoria = CategoriaDAO.BuscarCategoriaById(Categorias);
+                    }
+                    else
+                    {
+                        produto.Imagem = "semimagem.jpg";
+                    }
+
+                    if (ProdutoDAO.CadastrarProduto(produto))
+                    {
+                        return RedirectToAction("Index", "Produto");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Produto já existente no Banco!");
+                        return View(produto);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("","Produto já existente no Banco!");
                     return View(produto);
                 }
             }
@@ -69,7 +98,7 @@ namespace EcommerceOsorioManha.Controllers
         #region Pag Alterar Produto
         public ActionResult AlterarProduto(int id)
         {
-            
+
             return View(ProdutoDAO.BuscarProduto(id));
         }
         #endregion
@@ -84,7 +113,7 @@ namespace EcommerceOsorioManha.Controllers
             produtoOriginal.Preco = produtoAlterado.Preco;
             produtoOriginal.Categoria = produtoAlterado.Categoria;
 
-           
+
             if (ModelState.IsValid)
             {
                 if (ProdutoDAO.AlterarProduto(produtoOriginal))

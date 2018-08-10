@@ -9,12 +9,13 @@ namespace EcommerceOsorioManha.DAL
 {
     public class ProdutoDAO
     {
-        private static Context ctx = new Context();
+        //Puxando o SingletonContext para instanciar a classe ctx
+        public static Context ctx = SingletonContext.GetInstance();
 
         #region Listar Produtos
         public static List<Produto> ReturnProdutos()
         {
-            return ctx.Produtos.ToList();
+            return ctx.Produtos.Include("Categoria").ToList();
         }
         #endregion
 
