@@ -27,7 +27,6 @@ namespace EcommerceOsorioManha.Models
         [Display(Name = "Preço do Produto R$")]
         public double Preco { get; set; }
 
-        [Required(ErrorMessage = "O campo é obrigatório")]
         [Display(Name = "Categ. do Produto")]
         public Categoria Categoria { get; set; }
 

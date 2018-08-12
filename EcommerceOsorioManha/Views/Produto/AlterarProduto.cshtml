@@ -4,7 +4,7 @@
 
 
 <div class="col-sm-4">
-    @using (Html.BeginForm("AlterarProduto", "Produto", FormMethod.Post, new { @class = "form-group" }))
+    @using (Html.BeginForm("AlterarProduto", "Produto", FormMethod.Post, new { @class = "form-group" , enctype = "multipart/form-data" }))
     {
 
         <fieldset>
@@ -42,18 +42,16 @@
                    @placeholder = "Preço em R$"
                })
             @Html.ValidationMessageFor(model => model.Preco, null, new { @class = "text-danger" })
-            <br><br>
 
-            @Html.Label("Categoria do produto")
-            @Html.TextBoxFor(model => model.Categoria,
-               new
-               {
-                   @class = "form-control",
-                   @placeholder = "Categ. do Produto"
-               })
+            <br /><br />
+            @Html.LabelFor(model => model.Categoria)
+            @Html.DropDownList("Categorias", null , "-- Selecione --", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Categoria, null, new { @class = "text-danger" })
-            <br><br>
-
+            <br><br />
+            @Html.Label("Imagem do produto")
+            <p>
+                <input type="file" name="fupImagem" />
+            </p>
         </fieldset>
             <input type="submit" value="Alterar" class="btn btn-warning" />
             <p>

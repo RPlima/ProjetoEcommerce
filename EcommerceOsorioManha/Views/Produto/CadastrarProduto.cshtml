@@ -5,7 +5,7 @@
 
 
 <div class="col-sm-4">
-    @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" , enctype= "multipart/from-data"}))
+    @using (Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post, new { @class = "form-group" , enctype= "multipart/form-data" }))
     {
 
         <fieldset>
@@ -46,8 +46,7 @@
             @Html.DropDownList("Categorias", null, "-- Selecione --", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Categoria, null, new { @class = "text-danger" })
             <br><br />
-            @Html.Label("Imagem do produto")
-
+            @Html.LabelFor(model => model.Imagem)
             <p>
                 <input type="file" name="fupImagem" />
             </p>

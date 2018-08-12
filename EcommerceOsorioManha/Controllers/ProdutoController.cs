@@ -44,15 +44,15 @@ namespace EcommerceOsorioManha.Controllers
             {
                 if (Categorias != null)
                 {
+                    produto.Categoria = CategoriaDAO.BuscarCategoriaById(Categorias);
                     if (fupImagem != null)
                     {
                         string nomeImagem = Path.GetFileName(fupImagem.FileName);
-                        string caminho = Path.Combine(Server.MapPath("~/Images/"));
+                        string caminho = Path.Combine(Server.MapPath("~/Images/"), nomeImagem);
 
                         fupImagem.SaveAs(caminho);
 
                         produto.Imagem = nomeImagem;
-                        produto.Categoria = CategoriaDAO.BuscarCategoriaById(Categorias);
                     }
                     else
                     {
@@ -98,33 +98,56 @@ namespace EcommerceOsorioManha.Controllers
         #region Pag Alterar Produto
         public ActionResult AlterarProduto(int id)
         {
-
+            ViewBag.Categorias = new SelectList(CategoriaDAO.RetornarCategorias(), "CategoriaId", "NomeCateg");
             return View(ProdutoDAO.BuscarProduto(id));
         }
         #endregion
 
         #region Alterando Produto
         [HttpPost]
-        public ActionResult AlterarProduto(Produto produtoAlterado)
+        public ActionResult AlterarProduto(Produto produtoAlterado, int? Categorias, HttpPostedFileBase fupImagem)
         {
+            ViewBag.Categorias = new SelectList(CategoriaDAO.RetornarCategorias(), "CategoriaId", "NomeCateg");
             Produto produtoOriginal = ProdutoDAO.BuscarProduto(produtoAlterado.ProdutoId);
             produtoOriginal.Nome = produtoAlterado.Descricao;
             produtoOriginal.Descricao = produtoAlterado.Descricao;
             produtoOriginal.Preco = produtoAlterado.Preco;
-            produtoOriginal.Categoria = produtoAlterado.Categoria;
-
+            produtoOriginal.Categoria = CategoriaDAO.BuscarCategoriaById(Categorias);
 
             if (ModelState.IsValid)
             {
-                if (ProdutoDAO.AlterarProduto(produtoOriginal))
+                if (Categorias != null)
                 {
-                    return RedirectToAction("Index", "Produto");
+                    if (fupImagem != null)
+                    {
+                        string nomeImagem = Path.GetFileName(fupImagem.FileName);
+                        string caminho = Path.Combine(Server.MapPath("~/Images/"), nomeImagem);
+
+                        fupImagem.SaveAs(caminho);
+
+                        produtoOriginal.Imagem = nomeImagem;
+                    }
+                    else
+                    {
+                        produtoOriginal.Imagem = "semimagem.jpg";
+                    }
+
+                    if (ProdutoDAO.AlterarProduto(produtoOriginal))
+                    {
+                        return RedirectToAction("Index", "Produto");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Produto com o mesmo nome já existente no Banco!");
+                        return View(produtoOriginal);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Produto com o mesmo nome já existente no Banco!");
+                    ModelState.AddModelError("", "Selecione uma Categoria!");
                     return View(produtoOriginal);
                 }
+                
             }
             else
             {

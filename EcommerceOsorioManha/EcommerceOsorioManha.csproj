@@ -122,6 +122,10 @@
     <Compile Include="Migrations\201808101135059_Categoria.Designer.cs">
       <DependentUpon>201808101135059_Categoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808112311560_FixBanco.cs" />
+    <Compile Include="Migrations\201808112311560_FixBanco.Designer.cs">
+      <DependentUpon>201808112311560_FixBanco.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Context.cs" />
@@ -148,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807271351307_CriarBanco.resx">
@@ -158,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808101135059_Categoria.resx">
       <DependentUpon>201808101135059_Categoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808112311560_FixBanco.resx">
+      <DependentUpon>201808112311560_FixBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
